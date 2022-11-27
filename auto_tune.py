@@ -96,6 +96,8 @@ def autotune(audio, sr, correction_function, plot=False):
         ax.plot(time_points, f0, label='original pitch', color='cyan', linewidth=2)
         ax.plot(time_points, corrected_f0, label='corrected pitch', color='orange', linewidth=1)
         ax.legend(loc='upper right')
+        plt.ylabel('Frequency [Hz]')
+        plt.xlabel('Time [M:SS]')
         plt.savefig('pitch_correction.png', dpi=300, bbox_inches='tight')
 
     # Pitch-shifting using the PSOLA algorithm.
