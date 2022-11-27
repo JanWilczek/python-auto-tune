@@ -88,11 +88,11 @@ def autotune(audio, sr, correction_function, plot=False):
     if plot:
         # Plot the spectrogram, overlaid with the original pitch trajectory and the adjusted
         # pitch trajectory.
-        time_points = librosa.times_like(f0)
         stft = librosa.stft(audio, n_fft=frame_length, hop_length=hop_length)
+        time_points = librosa.times_like(stft, sr=sr, hop_length=hop_length)
         log_stft = librosa.amplitude_to_db(np.abs(stft), ref=np.max)
         fig, ax = plt.subplots()
-        img = librosa.display.specshow(log_stft, x_axis='time', y_axis='log', ax=ax)
+        img = librosa.display.specshow(log_stft, x_axis='time', y_axis='log', ax=ax, sr=sr, hop_length=hop_length, fmin=fmin, fmax=fmax)
         fig.colorbar(img, ax=ax, format="%+2.f dB")
         ax.plot(time_points, f0, label='original pitch', color='cyan', linewidth=2)
         ax.plot(time_points, corrected_f0, label='corrected pitch', color='orange', linewidth=1)
