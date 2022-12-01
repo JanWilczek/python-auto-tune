@@ -61,9 +61,9 @@ def aclosest_pitch_from_scale(f0, scale):
         sanitized_pitch[i] = closest_pitch_from_scale(f0[i], scale)
     # Perform median filtering to additionally smooth the corrected pitch.
     smoothed_sanitized_pitch = sig.medfilt(sanitized_pitch, kernel_size=11)
-    # Preserve nan values after filtering.
+    # Remove the additional NaN values after median filtering.
     smoothed_sanitized_pitch[np.isnan(smoothed_sanitized_pitch)] = \
-        f0[np.isnan(smoothed_sanitized_pitch)]
+        sanitized_pitch[np.isnan(smoothed_sanitized_pitch)]
     return smoothed_sanitized_pitch
 
 
